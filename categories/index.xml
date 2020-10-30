@@ -5,6 +5,34 @@
     <link>https://juhalehtonen.github.io/categories/</link>
     <description>Recent content in Categories on Juha.TL</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://juhalehtonen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Fri, 30 Oct 2020 20:03:39 +0200</lastBuildDate><atom:link href="https://juhalehtonen.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Development</title>
+      <link>https://juhalehtonen.github.io/categories/development/</link>
+      <pubDate>Fri, 30 Oct 2020 20:03:39 +0200</pubDate>
+      
+      <guid>https://juhalehtonen.github.io/categories/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://juhalehtonen.github.io/categories/hugo/</link>
+      <pubDate>Fri, 30 Oct 2020 20:03:39 +0200</pubDate>
+      
+      <guid>https://juhalehtonen.github.io/categories/hugo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Plausible</title>
+      <link>https://juhalehtonen.github.io/categories/plausible/</link>
+      <pubDate>Fri, 30 Oct 2020 20:03:39 +0200</pubDate>
+      
+      <guid>https://juhalehtonen.github.io/categories/plausible/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
