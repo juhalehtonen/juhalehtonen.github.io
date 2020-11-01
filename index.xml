@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Juha.TL</title>
-    <link>https://juhalehtonen.github.io/</link>
+    <link>https://juha.tl/</link>
     <description>Recent content on Juha.TL</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Oct 2020 20:03:39 +0200</lastBuildDate><atom:link href="https://juhalehtonen.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Oct 2020 20:03:39 +0200</lastBuildDate><atom:link href="https://juha.tl/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>New personal site with Hugo</title>
-      <link>https://juhalehtonen.github.io/post/new-personal-site-with-hugo/</link>
+      <link>https://juha.tl/post/new-personal-site-with-hugo/</link>
       <pubDate>Fri, 30 Oct 2020 20:03:39 +0200</pubDate>
       
-      <guid>https://juhalehtonen.github.io/post/new-personal-site-with-hugo/</guid>
+      <guid>https://juha.tl/post/new-personal-site-with-hugo/</guid>
       <description>My previous personal site was built with Elixir and Phoenix. While I love the BEAM ecosystem, it didn&amp;rsquo;t really make much sense to host a completely static website on top of Phoenix (and pay for the associated server costs). I&amp;rsquo;m still very actively working with Phoenix, but for my personal little corner of the web, I wanted to go with something simpler.
 Static site generation After some quick contemplation, I picked Hugo.</description>
     </item>
     
     <item>
       <title>Skills and experience</title>
-      <link>https://juhalehtonen.github.io/about/</link>
+      <link>https://juha.tl/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://juhalehtonen.github.io/about/</guid>
+      <guid>https://juha.tl/about/</guid>
       <description>TL/DR: You can grab my CV in English and/or Finnish.
 Knowing how to take a project from start to finish (and beyond) is one of my key strengths. Given the variety of hats I&amp;rsquo;ve worn during my seven years on the field, there&amp;rsquo;s a lot I can offer every step of the way. With that being said, my recent years have definitely sharpened my focus towards all things technical.
 Code &amp;amp; software My primary programming languages of choice are Elixir, JavaScript and PHP.</description>

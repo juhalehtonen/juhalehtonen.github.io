@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pages on Juha.TL</title>
-    <link>https://juhalehtonen.github.io/page/</link>
+    <link>https://juha.tl/page/</link>
     <description>Recent content in Pages on Juha.TL</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="https://juhalehtonen.github.io/page/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://juha.tl/page/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Skills and experience</title>
-      <link>https://juhalehtonen.github.io/about/</link>
+      <link>https://juha.tl/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://juhalehtonen.github.io/about/</guid>
+      <guid>https://juha.tl/about/</guid>
       <description>TL/DR: You can grab my CV in English and/or Finnish.
 Knowing how to take a project from start to finish (and beyond) is one of my key strengths. Given the variety of hats I&amp;rsquo;ve worn during my seven years on the field, there&amp;rsquo;s a lot I can offer every step of the way. With that being said, my recent years have definitely sharpened my focus towards all things technical.
 Code &amp;amp; software My primary programming languages of choice are Elixir, JavaScript and PHP.</description>
