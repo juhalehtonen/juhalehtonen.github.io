@@ -47,17 +47,22 @@
                     
                         <span class="c-label">Plausible</span>
                     
+                        <span class="c-label">Github</span>
+                    
                 </div>
             </header>
 
             <main class="c-article__content">
                 
 
-                <p>My previous personal site was built with <a href="https://elixir-lang.org">Elixir</a> and <a href="https://phoenixframework.org/">Phoenix</a>. While I still love the BEAM ecosystem, it didn&rsquo;t really make much sense to host a completely static website on top of Phoenix (and pay for the associated server costs). I&rsquo;m still very actively working with Phoenix, but for my personal little corner of the web, I wanted to go with something simpler.</p>
-<p>After a small time of contemplation, I picked <a href="https://gohugo.io/">Hugo</a>. The primary motivator was that I knew I&rsquo;d be running into <a href="https://www.gatsbyjs.com/">Gatsby</a> at work soon anyway, so choosing to <strong>not</strong> use it allowed me to expand my experiences beyond what I touch at work. I&rsquo;ll be writing about this trail of thought more in the future. I&rsquo;d suggest staying tuned, but you might be tuning in for quite some time.</p>
+                <p>My previous personal site was built with <a href="https://elixir-lang.org">Elixir</a> and <a href="https://phoenixframework.org/">Phoenix</a>. While I love the BEAM ecosystem, it didn&rsquo;t really make much sense to host a completely static website on top of Phoenix (and pay for the associated server costs). I&rsquo;m still very actively working with Phoenix, but for my personal little corner of the web, I wanted to go with something simpler.</p>
+<h2 id="static-site-generation">Static site generation</h2>
+<p>After some quick contemplation, I picked <a href="https://gohugo.io/">Hugo</a>. The primary motivator was that I knew I&rsquo;d be running into <a href="https://www.gatsbyjs.com/">Gatsby</a> at work soon anyway. Choosing to <strong>not</strong> use Gatsby allows me to expand my experiences beyond what I use at work, which I believe is a <em>great way to appreciate the tools one uses</em>. I&rsquo;ll be writing about this trail of thought more in the future. I&rsquo;d suggest staying tuned, but you might be tuning in for quite some time :).</p>
 <p>Having used Jekyll before, Hugo seems sort of familiar right off the gate. However, I wasn&rsquo;t a big fan of the documentation and guides the Hugo site offered. I had to spend some time discovering the Hugo features and patterns by myself, as the documentation seemed more geared towards those users who had already familiarized themselves with the tool.</p>
+<p>The site is hosted on GitHub Pages, which also seemed like the easiest way to achieve what I needed. Other noteworthy option would have been <a href="https://www.netlify.com/">Netlify</a>, and I don&rsquo;t really see any particular reason why I wouldn&rsquo;t use their service (aside from just happening to not pick them this time around).</p>
+<h2 id="privacy-friendly-analytics">Privacy-friendly analytics</h2>
 <p>Another piece of technology that I wanted to test out with this site is <a href="https://plausible.io/">Plausible</a>, a new privacy-friendly web analytics service. I didn&rsquo;t want to bother with GDPR (privacy policies, cookie settings and all that), so Plausible was a natural choice. I&rsquo;ve been a big user of Google Analytics at work, but as with the Hugo choice, I try my best to <em>try new things when building stuff for fun</em>. You can even find a link to this site&rsquo;s public analytics at the bottom of this page.</p>
-<p>I&rsquo;ll write more about my experiences with Hugo and Plausible once I&rsquo;ve spent more time with them.</p>
+<p>Plausible doesn&rsquo;t come with nearly as many features as Google Analytics does, but I wouldn&rsquo;t really need those features on such a simple site anyway. Google Analytics does come with more privacy-friendly options nowadays (such as cookieless mode), but the data is still being hosted outside of EU. That might or might not be a problem due to the recent lapse of Privacy Shield, but having data hosted in the EU seems like the safer bet from a GDPR perspective.</p>
 
             </main>
         </article>

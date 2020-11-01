@@ -13,8 +13,8 @@
       <pubDate>Fri, 30 Oct 2020 20:03:39 +0200</pubDate>
       
       <guid>https://juhalehtonen.github.io/post/new-personal-site-with-hugo/</guid>
-      <description>My previous personal site was built with Elixir and Phoenix. While I still love the BEAM ecosystem, it didn&amp;rsquo;t really make much sense to host a completely static website on top of Phoenix (and pay for the associated server costs). I&amp;rsquo;m still very actively working with Phoenix, but for my personal little corner of the web, I wanted to go with something simpler.
-After a small time of contemplation, I picked Hugo.</description>
+      <description>My previous personal site was built with Elixir and Phoenix. While I love the BEAM ecosystem, it didn&amp;rsquo;t really make much sense to host a completely static website on top of Phoenix (and pay for the associated server costs). I&amp;rsquo;m still very actively working with Phoenix, but for my personal little corner of the web, I wanted to go with something simpler.
+Static site generation After some quick contemplation, I picked Hugo.</description>
     </item>
     
   </channel>
