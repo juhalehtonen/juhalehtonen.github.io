@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Juha.TL - a multidisciplinary full-stack developer</title>
+    <meta name="description" content="Juha Lehtonen: a multidisciplinary full-stack developer, an occasional designer-copywriter, and maker of all things web.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Juha.TL">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://juha.tl/">
+    <meta property="og:image" content="https://juha.tl/img/juha-round-400x400.png">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%235e19d3%22></rect><path fill=%22%23fff%22 d=%22M30.02 22.86L30.02 22.86Q30.46 22.68 31.40 22.45Q32.33 22.23 33.31 22.23L33.31 22.23Q37.23 22.23 37.23 25.53L37.23 25.53L37.23 63.62Q37.23 67.62 36.07 70.34Q34.91 73.05 32.91 74.70Q30.91 76.34 28.28 77.06Q25.66 77.77 22.81 77.77L22.81 77.77Q17.74 77.77 15.42 76.57Q13.11 75.36 13.11 73.41L13.11 73.41Q13.11 72.16 13.64 71.27Q14.18 70.38 14.62 69.94L14.62 69.94Q15.96 70.56 17.83 71.09Q19.70 71.63 21.74 71.63L21.74 71.63Q25.75 71.63 27.88 69.71Q30.02 67.80 30.02 63.26L30.02 63.26L30.02 22.86ZM56.99 76.79L56.99 76.79Q55.30 76.79 54.18 75.72Q53.07 74.65 53.07 72.87L53.07 72.87L53.07 22.86Q53.52 22.68 54.45 22.45Q55.38 22.23 56.45 22.23L56.45 22.23Q60.37 22.23 60.37 25.53L60.37 25.53L60.37 70.56L85.91 70.56Q86.89 71.54 86.89 73.50L86.89 73.50Q86.89 75.01 86.09 75.90Q85.29 76.79 83.95 76.79L83.95 76.79L56.99 76.79Z%22></path></svg>" />    
+
+    <script async defer data-domain="juha.tl" src="https://plausible.io/js/plausible.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    
+    
+    <link rel="stylesheet" href="https://juha.tl/scss/main.min.css">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<div id="swup" class="transition-fade">
+
+<main class="o-container">
+    <div class="c-site-content">
+        <article class="c-article">
+            <header class="c-article__header">
+                <a href="/" class="c-article__back">&larr; Back to listing</a>
+                <h1 class="c-article__title">Real-time multi-user canvas with Elixir and Phoenix</h1>
+                <div class="c-article__meta">
+                    <time datetime='Nov 10 2020'>
+                        Nov 10 2020
+                    </time> &ndash; <span>6 minute read</span>
+                </div>
+                <div class="c-article__categories">
+                    
+                        <span class="c-label">Development</span>
+                    
+                        <span class="c-label">Elixir</span>
+                    
+                        <span class="c-label">Phoenix</span>
+                    
+                        <span class="c-label">Websockets</span>
+                    
+                </div>
+            </header>
+
+            <main class="c-article__content">
+                
+
+                <p><strong>Note:</strong> The demo I discuss below was built in 2017, so certain examples might not reflect best practices today. It&rsquo;s still a fun little interactive example of Elixir though, so I wanted to write some thoughts about it regardless.</p>
+<p>Three years ago I wanted to experiment with the soft real-time capabilities of Elixir and Phoenix. I wanted to build a fun demo that could be easily shared with my friends and co-workers, and which would also illustrate the real-time aspect well. With that, I came up with the idea of creating a shared canvas users could draw on. I had seen these on the internet before, but none built with Elixir.</p>
+<p>I dubbed this demo <a href="https://github.com/juhalehtonen/wall_ex">WallEx (GitHub link)</a>, and you can <a href="https://wallex.herokuapp.com/">check it out running on Heroku</a>. Due to using free dynos, there might be a spin-up time if no traffic has been directed WallEx&rsquo;s way lately.</p>
+<h2 id="how-it-works">How it works</h2>
+<h3 id="ui-with-canvas-javascript-and-phoenixjs">UI with canvas, JavaScript and phoenix.js</h3>
+<p>To be honest, I wasn&rsquo;t really interested in the frontend of this project. I just wanted something usable in order to demonstrate the cool things happening on the server side, and didn&rsquo;t really care what the frontend was like as long as it did its job.</p>
+<p>The frontend is essentially a single HTML <code>canvas</code> element with simple JS front-end to allow drawing lines on the canvas. The only front-end library is <code>phoenix.js</code>, which ships with the Phoenix framework and which simplifies the use of Phoenix' Channel abstraction.</p>
+<p>Phoenix.js makes it super simple to handle the websocket parts. Most of my websocket-related code looked just like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">/**
+</span><span style="color:#75715e"> * Draw lines upon first page load. Can happen multiple times, as the server will
+</span><span style="color:#75715e"> * batch messages to keep array sizes sane.
+</span><span style="color:#75715e"> */</span>
+<span style="color:#a6e22e">channel</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#34;load&#34;</span>, <span style="color:#a6e22e">payload</span> =&gt; {
+  <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">drawLines</span>(<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">lines</span>);
+});
+
+<span style="color:#75715e">/*
+</span><span style="color:#75715e"> * Draw on canvas whatever we receive from the server.
+</span><span style="color:#75715e"> */</span>
+<span style="color:#a6e22e">channel</span>.<span style="color:#a6e22e">on</span>(<span style="color:#e6db74">&#34;draw&#34;</span>, <span style="color:#a6e22e">payload</span> =&gt; {
+  <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">drawLines</span>(<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">lines</span>);
+});
+</code></pre></div><h3 id="server-side-websockets-with-phoenix-channels">Server-side websockets with Phoenix Channels</h3>
+<p>Phoenix has an amazing abstraction around Websockets called Channels, which can handle millions of connected clients on a single machine. While on this scale any solution could do, having something that scales as my foundation was nice.</p>
+<p>As an example of how the draw event from the previous example is handled in the Elixir code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#a6e22e">@doc</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">Handle a draw event, storing the lines drawn to our storage alongside with a
+</span><span style="color:#e6db74">timestamp that can be used to clear the canvas.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> handle_in(<span style="color:#e6db74">&#34;draw&#34;</span>, %{<span style="color:#e6db74">&#34;canvas_id&#34;</span> <span style="color:#f92672">=&gt;</span> canvas_id, <span style="color:#e6db74">&#34;lines&#34;</span> <span style="color:#f92672">=&gt;</span> lines}, socket) <span style="color:#66d9ef">do</span>
+  timestamp <span style="color:#f92672">=</span> <span style="color:#e6db74">:os</span><span style="color:#f92672">.</span>system_time(<span style="color:#e6db74">:nano_seconds</span>)
+  <span style="color:#a6e22e">Storage</span><span style="color:#f92672">.</span>insert_drawing(%{<span style="color:#e6db74">timestamp</span>: timestamp, <span style="color:#e6db74">canvas_id</span>: canvas_id, <span style="color:#e6db74">lines</span>: lines})
+  broadcast!(socket, <span style="color:#e6db74">&#34;draw&#34;</span>, %{<span style="color:#e6db74">canvas_id</span>: canvas_id, <span style="color:#e6db74">lines</span>: lines})
+  {<span style="color:#e6db74">:noreply</span>, socket}
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>Each stroke on the canvas is sent to server, saved to ETS (see the storage section below), and broadcast back to all other users. To avoid broadcasting the unnecessary data back to the client that sent it, we intercept the outgoing event and pass the message onwards only if the <code>canvas_id</code> (user identifier) differs from the sender:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#a6e22e">@doc</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">Intercept the outgoing draw event and filter it out if the receiver would be
+</span><span style="color:#e6db74">the sender. Pages draw locally to their own canvas before sending out draw events
+</span><span style="color:#e6db74">so we don&#39;t rebroadcast them the event they sent the server.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> handle_out(<span style="color:#e6db74">&#34;draw&#34;</span>, %{<span style="color:#e6db74">canvas_id</span>: canvas_id, <span style="color:#e6db74">lines</span>: lines}, socket) <span style="color:#66d9ef">do</span>
+  <span style="color:#66d9ef">if</span> canvas_id <span style="color:#f92672">===</span> socket<span style="color:#f92672">.</span>assigns<span style="color:#f92672">.</span>canvas_id <span style="color:#66d9ef">do</span>
+    {<span style="color:#e6db74">:noreply</span>, socket}
+  <span style="color:#66d9ef">else</span>
+    push(socket, <span style="color:#e6db74">&#34;draw&#34;</span>, %{<span style="color:#e6db74">lines</span>: lines})
+    {<span style="color:#e6db74">:noreply</span>, socket}
+  <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p>When a user connects, the server sends them all stored data in chunks. Chunking was my solution to the problem where certain low-powered devices (mobile phones) would have their browsers crash when massive arrays would be sent to their way, and they&rsquo;d have to draw them all to the canvas at once.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#a6e22e">@doc</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">Load existing drawings and send them to the joining client.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#66d9ef">def</span> handle_info(<span style="color:#e6db74">:after_join</span>, socket) <span style="color:#66d9ef">do</span>
+  batches <span style="color:#f92672">=</span> get_drawings_from_storage()
+  <span style="color:#75715e"># Push each batch to the client</span>
+  <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>each(batches, <span style="color:#66d9ef">fn</span> lines <span style="color:#f92672">-&gt;</span> push(socket, <span style="color:#e6db74">&#34;load&#34;</span>, %{<span style="color:#e6db74">lines</span>: lines}) <span style="color:#66d9ef">end</span>)
+
+  {<span style="color:#e6db74">:noreply</span>, socket}
+<span style="color:#66d9ef">end</span>
+
+<span style="color:#66d9ef">defp</span> get_drawings_from_storage <span style="color:#66d9ef">do</span>
+  drawings <span style="color:#f92672">=</span> <span style="color:#66d9ef">for</span> [{_, item}] <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">Storage</span><span style="color:#f92672">.</span>get_drawings(), <span style="color:#e6db74">do</span>: item
+  lines <span style="color:#f92672">=</span> <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>map(drawings, <span style="color:#66d9ef">fn</span> drawing <span style="color:#f92672">-&gt;</span> drawing <span style="color:#66d9ef">end</span>) <span style="color:#f92672">|&gt;</span> <span style="color:#a6e22e">List</span><span style="color:#f92672">.</span>flatten()
+
+  <span style="color:#75715e"># Go through `lines` and step through every 500 of them.</span>
+  <span style="color:#75715e"># Returns a list of lists, so we can enumerate through it to push.</span>
+  <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>chunk_every(lines, <span style="color:#ae81ff">500</span>)
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p><strong>What I would do differently today:</strong> I would have a separate task for running <code>Storage.insert_drawing/1</code> rather than running it as part of the <code>handle_in/3</code> function. This change could save some milli- or microseconds per write (of which there are plenty), as we wouldn&rsquo;t need to wait for the insert to be complete to broadcast the drawing to others. I&rsquo;ve never witnessed any problems with this in the real world, but on a large-scale application this might be a worthwhile consideration.</p>
+<h3 id="in-memory-storage-with-ets">In-memory storage with ETS</h3>
+<p>As might already be clear from above, storage was a requirement to allow new users to see what others had already drawn. Without storing all the drawings, it&rsquo;d be impossible to ensure everyone sees the same things, and there&rsquo;d be no way to handle refreshes or disconnects reliably.</p>
+<p>WallEx saves each stroke as its own row. I used a tuple of the timestamp and canvas_id as the key, since I wanted to preserve the possibility of both 1) expiring old drawings, and 2) identifying which drawings belong to whom. I also needed something more than the timestamp as the key anyway, as multiple people could be drawing at the same time, and theoretically their keys (based on the timestamp alone) could collide.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#a6e22e">@doc</span> <span style="color:#e6db74">&#34;&#34;&#34;
+</span><span style="color:#e6db74">Given a drawing, insert it to ETS.
+</span><span style="color:#e6db74">&#34;&#34;&#34;</span>
+<span style="color:#a6e22e">@spec</span> insert_drawing(map()) <span style="color:#f92672">::</span> boolean()
+<span style="color:#66d9ef">def</span> insert_drawing(drawing) <span style="color:#66d9ef">do</span>
+  <span style="color:#e6db74">:ets</span><span style="color:#f92672">.</span>insert_new(
+    <span style="color:#a6e22e">@drawings_table</span>,
+    {{drawing<span style="color:#f92672">.</span>timestamp, drawing<span style="color:#f92672">.</span>canvas_id}, drawing<span style="color:#f92672">.</span>lines}
+  )
+<span style="color:#66d9ef">end</span>
+</code></pre></div><p><strong>What I would do differently today:</strong> I would put a limit in place on how much drawing can be done on a specific canvas, or <em>replace a stored row with another when their coordinates match</em>. Thanks to not having this in place now, with enough drawings and enough time you can kill the entire application by exhausting it of its memory :).</p>
+<h2 id="benefits-of-doing-this-with-elixir">Benefits of doing this with Elixir</h2>
+<p>While the demo discussed above is fairly simple, and could be built with any reasonable programming language and stack, I feel there are certain reasons why Elixir is a great fit for soft real-time projects like this. Aside from the usual &ldquo;BEAM is built for concurrency&rdquo; line, I figured there were two extra pieces that supported WallEx especially well:</p>
+<h3 id="simple-stack-with-no-dependencies">Simple stack with no dependencies</h3>
+<p>Thanks to ETS being built in to BEAM, I was free to not configure any additional software on my server to make the demo work. In most other languages I would have reached for something like Redis to act as the datastore, but with Elixir I could just write a few dozen lines of code and be done with it.</p>
+<p>Utilizing the tools built in to BEAM simplified my tech stack, as now I just had to build and run my application and not worry about anything else. With fewer external dependencies in place, I also had more control over how exactly my storage system behaves.</p>
+<p>This isn&rsquo;t to say Redis isn&rsquo;t amazing (it is!), but being able to avoid extra pieces of technology was a welcome feature of my stack choice.</p>
+<h3 id="fast-storage">Fast storage</h3>
+<p>ETS is very fast. <a href="https://github.com/minhajuddin/redis_vs_ets_showdown">Some benchmarks</a> have seen a considerable difference in speed between Redis and ETS. Speed was important to me, because I wanted to see just how real-time I could make WallEx.</p>
+<p>To sidestep the storage speed considerations, I could&rsquo;ve also broadcasted the drawings per stroke, but saved the data separately in much bigger chunks. I didn&rsquo;t do that though, since I had some other plans that required per-stroke accuracy (namely, the replace-on-coordinate-conflict behaviour I outlined above) :)</p>
+
+            </main>
+        </article>
+    </div>
+</main>
+
+        <footer class="c-site-footer">
+            <p>No cookies or trackers served. <br>Check out the <a href="https://plausible.io/share/jXuThv3j62n-9teEU4iqg">public analytics</a> for this site.</p>
+        </footer>
+
+        </div>
+        <script src="/assets/bundle.js"></script>
+    </body>
+</html>

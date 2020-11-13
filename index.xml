@@ -6,7 +6,17 @@
     <description>Recent content on Juha.TL</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 30 Oct 2020 20:03:39 +0200</lastBuildDate><atom:link href="https://juha.tl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 10 Nov 2020 20:03:39 +0200</lastBuildDate><atom:link href="https://juha.tl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Real-time multi-user canvas with Elixir and Phoenix</title>
+      <link>https://juha.tl/post/real-time-multi-user-canvas-with-elixir-and-phoenix/</link>
+      <pubDate>Tue, 10 Nov 2020 20:03:39 +0200</pubDate>
+      
+      <guid>https://juha.tl/post/real-time-multi-user-canvas-with-elixir-and-phoenix/</guid>
+      <description>Note: The demo I discuss below was built in 2017, so certain examples might not reflect best practices today. It&amp;rsquo;s still a fun little interactive example of Elixir though, so I wanted to write some thoughts about it regardless.
+Three years ago I wanted to experiment with the soft real-time capabilities of Elixir and Phoenix. I wanted to build a fun demo that could be easily shared with my friends and co-workers, and which would also illustrate the real-time aspect well.</description>
+    </item>
+    
     <item>
       <title>New personal site with Hugo</title>
       <link>https://juha.tl/post/new-personal-site-with-hugo/</link>

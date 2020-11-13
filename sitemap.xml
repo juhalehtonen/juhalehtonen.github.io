@@ -4,12 +4,42 @@
   
   <url>
     <loc>https://juha.tl/categories/</loc>
-    <lastmod>2020-10-30T20:03:39+02:00</lastmod>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://juha.tl/categories/development/</loc>
-    <lastmod>2020-10-30T20:03:39+02:00</lastmod>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/categories/elixir/</loc>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/</loc>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/categories/phoenix/</loc>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/post/</loc>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/post/real-time-multi-user-canvas-with-elixir-and-phoenix/</loc>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/categories/websockets/</loc>
+    <lastmod>2020-11-10T20:03:39+02:00</lastmod>
   </url>
   
   <url>
@@ -23,22 +53,12 @@
   </url>
   
   <url>
-    <loc>https://juha.tl/</loc>
-    <lastmod>2020-10-30T20:03:39+02:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://juha.tl/post/new-personal-site-with-hugo/</loc>
     <lastmod>2020-10-30T20:03:39+02:00</lastmod>
   </url>
   
   <url>
     <loc>https://juha.tl/categories/plausible/</loc>
-    <lastmod>2020-10-30T20:03:39+02:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://juha.tl/post/</loc>
     <lastmod>2020-10-30T20:03:39+02:00</lastmod>
   </url>
   
