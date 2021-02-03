@@ -82,7 +82,7 @@
   <span style="color:#a6e22e">canvas</span>.<span style="color:#a6e22e">drawLines</span>(<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">lines</span>);
 });
 </code></pre></div><h3 id="server-side-websockets-with-phoenix-channels">Server-side websockets with Phoenix Channels</h3>
-<p>Phoenix has an amazing abstraction around Websockets called Channels, which can handle millions of connected clients on a single machine. While on this scale any solution could do, having something that scales as my foundation was nice.</p>
+<p>Phoenix has an amazing abstraction around Websockets called Channels, which can handle hundreds of thousands (or up to millions, given enough CPU juice) of connected clients on a single machine. While on my non-existing scale any solution could do, having something that can scale as my foundation was a nice benefit to have.</p>
 <p>As an example of how the draw event from the previous example is handled in the Elixir code:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#a6e22e">@doc</span> <span style="color:#e6db74">&#34;&#34;&#34;
 </span><span style="color:#e6db74">Handle a draw event, storing the lines drawn to our storage alongside with a
@@ -108,7 +108,7 @@
     {<span style="color:#e6db74">:noreply</span>, socket}
   <span style="color:#66d9ef">end</span>
 <span style="color:#66d9ef">end</span>
-</code></pre></div><p>When a user connects, the server sends them all stored data in chunks. Chunking was my solution to the problem where certain low-powered devices (mobile phones) would have their browsers crash when massive arrays would be sent to their way, and they&rsquo;d have to draw them all to the canvas at once.</p>
+</code></pre></div><p>When a user connects, the server sends them all stored data in chunks. Chunking was my solution to the problem where certain low-powered devices (mobile phones) would have their browsers crash when massive (hundreds of thousands of entries) arrays would be sent to their way, and they&rsquo;d have to draw them all to the canvas at once. I could&rsquo;ve batched the draws client-side as well, but this is the solution I went with.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-elixir" data-lang="elixir"><span style="color:#a6e22e">@doc</span> <span style="color:#e6db74">&#34;&#34;&#34;
 </span><span style="color:#e6db74">Load existing drawings and send them to the joining client.
 </span><span style="color:#e6db74">&#34;&#34;&#34;</span>
@@ -128,7 +128,7 @@
   <span style="color:#75715e"># Returns a list of lists, so we can enumerate through it to push.</span>
   <span style="color:#a6e22e">Enum</span><span style="color:#f92672">.</span>chunk_every(lines, <span style="color:#ae81ff">500</span>)
 <span style="color:#66d9ef">end</span>
-</code></pre></div><p><strong>What I would do differently today:</strong> I would have a separate task for running <code>Storage.insert_drawing/1</code> rather than running it as part of the <code>handle_in/3</code> function. This change could save some milli- or microseconds per write (of which there are plenty), as we wouldn&rsquo;t need to wait for the insert to be complete to broadcast the drawing to others. I&rsquo;ve never witnessed any problems with this in the real world, but on a large-scale application this might be a worthwhile consideration.</p>
+</code></pre></div><p><strong>What I would do differently today:</strong> I would have a separate task for running <code>Storage.insert_drawing/1</code> rather than running it as part of the <code>handle_in/3</code> function. This change could save some milli- or microseconds per write (of which there are plenty), as we wouldn&rsquo;t need to wait for the insert to be complete to broadcast the drawing to others. I&rsquo;ve never witnessed any problems with this in the real world, but on a large-scale application this might be a worthwhile consideration. I would also reconsider the need to batch the draws the way I did.</p>
 <h3 id="in-memory-storage-with-ets">In-memory storage with ETS</h3>
 <p>As might already be clear from above, storage was a requirement to allow new users to see what others had already drawn. Without storing all the drawings, it&rsquo;d be impossible to ensure everyone sees the same things, and there&rsquo;d be no way to handle refreshes or disconnects reliably.</p>
 <p>WallEx saves each stroke as its own row. I used a tuple of the timestamp and canvas_id as the key, since I wanted to preserve the possibility of both 1) expiring old drawings, and 2) identifying which drawings belong to whom. I also needed something more than the timestamp as the key anyway, as multiple people could be drawing at the same time, and theoretically their keys (based on the timestamp alone) could collide.</p>
@@ -144,14 +144,9 @@
 <span style="color:#66d9ef">end</span>
 </code></pre></div><p><strong>What I would do differently today:</strong> I would put a limit in place on how much drawing can be done on a specific canvas, or <em>replace a stored row with another when their coordinates match</em>. Thanks to not having this in place now, with enough drawings and enough time you can kill the entire application by exhausting it of its memory :).</p>
 <h2 id="benefits-of-doing-this-with-elixir">Benefits of doing this with Elixir</h2>
-<p>While the demo discussed above is fairly simple, and could be built with any reasonable programming language and stack, I feel there are certain reasons why Elixir is a great fit for soft real-time projects like this. Aside from the usual &ldquo;BEAM is built for concurrency&rdquo; line, I figured there were two extra pieces that supported WallEx especially well:</p>
-<h3 id="simple-stack-with-no-dependencies">Simple stack with no dependencies</h3>
-<p>Thanks to ETS being built in to BEAM, I was free to not configure any additional software on my server to make the demo work. In most other languages I would have reached for something like Redis to act as the datastore, but with Elixir I could just write a few dozen lines of code and be done with it.</p>
+<p>While the demo discussed above is fairly simple, and could be built with any reasonable programming language and stack, I feel there are certain reasons why Elixir is a great fit for soft real-time projects like this. Aside from the usual &ldquo;BEAM is built for concurrency&rdquo; line, there was something in particular that made me productive: <strong>A simple tech stack with no external software dependencies.</strong> Thanks to ETS being built in to BEAM, I was free to not configure any additional software on my server to make the demo work. In most other languages I would have reached for something like Redis to act as the datastore, but with Elixir I could just write a few dozen lines of code and be done with it.</p>
 <p>Utilizing the tools built in to BEAM simplified my tech stack, as now I just had to build and run my application and not worry about anything else. With fewer external dependencies in place, I also had more control over how exactly my storage system behaves.</p>
 <p>This isn&rsquo;t to say Redis isn&rsquo;t amazing (it is!), but being able to avoid extra pieces of technology was a welcome feature of my stack choice.</p>
-<h3 id="fast-storage">Fast storage</h3>
-<p>ETS is very fast. <a href="https://github.com/minhajuddin/redis_vs_ets_showdown">Some benchmarks</a> have seen a considerable difference in speed between Redis and ETS. Speed was important to me, because I wanted to see just how real-time I could make WallEx.</p>
-<p>To sidestep the storage speed considerations, I could&rsquo;ve also broadcasted the drawings per stroke, but saved the data separately in much bigger chunks. I didn&rsquo;t do that though, since I had some other plans that required per-stroke accuracy (namely, the replace-on-coordinate-conflict behaviour I outlined above) :)</p>
 
             </main>
         </article>
