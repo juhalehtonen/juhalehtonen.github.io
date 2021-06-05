@@ -13,7 +13,7 @@
       <pubDate>Tue, 10 Nov 2020 20:03:39 +0200</pubDate>
       
       <guid>https://juha.tl/post/real-time-multi-user-canvas-with-elixir-and-phoenix/</guid>
-      <description>Note: The demo I discuss below was built in 2017, so certain examples might not reflect best practices today. It&amp;rsquo;s still a fun little interactive example of Elixir though, so I wanted to write some thoughts about it regardless.
+      <description>Note: The demo I discuss below was built in 2017, so certain examples do not reflect best practices today. It&amp;rsquo;s still a fun little interactive example of Elixir though, so I wanted to write some thoughts about it regardless.
 Three years ago I wanted to experiment with the soft real-time capabilities of Elixir and Phoenix. I wanted to build a fun demo that could be easily shared with my friends and co-workers, and which would also illustrate the real-time aspect well.</description>
     </item>
     

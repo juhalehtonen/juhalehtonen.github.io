@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>OTP on Juha.TL</title>
+    <link>https://juha.tl/categories/otp/</link>
+    <description>Recent content in OTP on Juha.TL</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 04 Jun 2021 13:00:00 +0200</lastBuildDate><atom:link href="https://juha.tl/categories/otp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elixir: A Stable Foundation</title>
+      <link>https://juha.tl/post/elixir-a-stable-foundation/</link>
+      <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
+      
+      <guid>https://juha.tl/post/elixir-a-stable-foundation/</guid>
+      <description>What I like most about Elixir is how it offers developers a very stable foundation to build upon, both in terms of technological stability (thanks to BEAM) and in terms of churn. With the release of Elixir 1.9 back in 2019, José Valim noted that Elixir was more or less “done” in terms of major features, and that the focus going forward would be on developer experience, ergonomics and other quality-of-life matters.</description>
+    </item>
+    
+  </channel>
+</rss>

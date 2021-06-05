@@ -6,14 +6,23 @@
     <description>Recent content in Posts on Juha.TL</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Nov 2020 20:03:39 +0200</lastBuildDate><atom:link href="https://juha.tl/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 04 Jun 2021 13:00:00 +0200</lastBuildDate><atom:link href="https://juha.tl/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Elixir: A Stable Foundation</title>
+      <link>https://juha.tl/post/elixir-a-stable-foundation/</link>
+      <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
+      
+      <guid>https://juha.tl/post/elixir-a-stable-foundation/</guid>
+      <description>What I like most about Elixir is how it offers developers a very stable foundation to build upon, both in terms of technological stability (thanks to BEAM) and in terms of churn. With the release of Elixir 1.9 back in 2019, José Valim noted that Elixir was more or less “done” in terms of major features, and that the focus going forward would be on developer experience, ergonomics and other quality-of-life matters.</description>
+    </item>
+    
     <item>
       <title>Real-time multi-user canvas with Elixir and Phoenix</title>
       <link>https://juha.tl/post/real-time-multi-user-canvas-with-elixir-and-phoenix/</link>
       <pubDate>Tue, 10 Nov 2020 20:03:39 +0200</pubDate>
       
       <guid>https://juha.tl/post/real-time-multi-user-canvas-with-elixir-and-phoenix/</guid>
-      <description>Note: The demo I discuss below was built in 2017, so certain examples might not reflect best practices today. It&amp;rsquo;s still a fun little interactive example of Elixir though, so I wanted to write some thoughts about it regardless.
+      <description>Note: The demo I discuss below was built in 2017, so certain examples do not reflect best practices today. It&amp;rsquo;s still a fun little interactive example of Elixir though, so I wanted to write some thoughts about it regardless.
 Three years ago I wanted to experiment with the soft real-time capabilities of Elixir and Phoenix. I wanted to build a fun demo that could be easily shared with my friends and co-workers, and which would also illustrate the real-time aspect well.</description>
     </item>
     
