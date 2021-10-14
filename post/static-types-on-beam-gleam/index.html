@@ -72,13 +72,13 @@
 <pre><code>Compiling hello_world
 
 error: Type mismatch
-  ┌─ /Users/juhalehtonen/projects/gleam/blog_demo/src/hello_world.gleam:7:3
+  ┌─ /blog_demo/src/hello_world.gleam:7:3
   │
 7 │   &quot;Hello, from gleam!&quot;
   │   ^^^^^^^^^^^^^^^^^^^^
 
-The type of this returned value doesn't match the return type
-annotation of this function.
+The type of this returned value doesn't match 
+the return type annotation of this function.
 
 Expected type:
 
@@ -88,15 +88,6 @@ Found type:
 
     String
 
-</code></pre><pre><code>Compiling hello_world
-
-error: Unknown variable
-   ┌─ /Users/juhalehtonen/projects/gleam/blog_demo/src/hello_world.gleam:19:16
-   │
-19 │     _ -&gt; Error(nil)
-   │                ^^^ did you mean `Nil`?
-
-The name `nil` is not in scope here.
 </code></pre><p>With all this, I&rsquo;m looking forward to seeing where Gleam heads next, and what things I will be able to build with it :)</p>
 
             </main>
