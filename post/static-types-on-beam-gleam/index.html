@@ -36,7 +36,7 @@
                 <div class="c-article__meta">
                     <time datetime='Oct 14 2021'>
                         Oct 14 2021
-                    </time> &ndash; <span>3 minute read</span>
+                    </time> &ndash; <span>5 minute read</span>
                 </div>
                 <div class="c-article__categories">
                     
@@ -58,15 +58,46 @@
 <p>Thankfully, Elixir provides many tools for addressing typical type-related issues. The strong typing means implicit type casting is out of the picture, and you can avoid many other pitfalls of dynamic typing with a thorough use of guards, type specs and pattern matching. With these tools, you can be fairly certain that the value you are operating with is what you think it is. This approach, however, places the burden on the developer to make informed decisions and write.</p>
 <p>What if you really need static types in your Elixir project?</p>
 <h2 id="enter-gleam">Enter Gleam</h2>
-<p>Gleam is a fairly new language that runs on the BEAM. While still compiling down to Erlang, it is statically typed.</p>
-<p>However, you probably don&rsquo;t want to rewrite your existing Elixir project in Gleam. What excites me in such a scenario is the fact that you can call Gleam code directly from your Elixir code with zero overhead, since Gleam compiles down to Erlang, and Erlang code can already be called from Elixir as-is. This means that you can write parts of your code in Gleam, while keeping the overall system use Elixir.</p>
+<p><a href="https://gleam.run/">Gleam</a> is a fairly new language that runs on the BEAM. While still compiling down to Erlang, it is statically typed and offers full type inference. This means that you will be able to catch any type errors in your Gleam code at compile time, and you don&rsquo;t need to annotate your code if you don&rsquo;t want to. I do though, since it adds lots of helpful information to my future self :).</p>
+<p>However, you probably don&rsquo;t want to rewrite your entire existing Elixir project in Gleam just for static typing. What excites me in such a scenario is the fact that you can call Gleam code directly from your Elixir code with zero overhead, since Gleam compiles down to Erlang, and Erlang code can already be called from Elixir as-is. This means that you can write the critical and difficult parts of your code in Gleam, while keeping the overall system use Elixir.</p>
 <p>A pattern I&rsquo;ve recently investigated is to write as much of the core of your software in Gleam as possible, while keeping the OTP systems and interface around your core in Elixir. An advantage I see in this is that I&rsquo;m able to use all the know-how, dependencies and tooling from Elixir to setup my project, while using Gleam to be certain that the core functionality of my system is statically typed. I feel like this approach also makes sense when you consider that things like external inputs need to be treated as unknown types anyway, so it&rsquo;s natural to take them in via a dynamically typed language and then convert them to known types your core expects.</p>
-<p>This approach does not really differ from how you would write Elixir in most cases anyway. For example, you probably already convert the parameters passed to your Phoenix controllers into more well-defined types before calling your context modules with the values. The thing that changes is the fact that you can benefit from static typing, giving you extra guarantees about the correctness of your code (and relieving you from typing many @spec definitions!). However, it is worth understanding the limitations of this approach: the Elixir side cannot know if you are calling Gleam functions with bad values (after compilation, Gleam is just dynamically typed Erlang after all), so the compiler won&rsquo;t be able to stop you from making a call that isn&rsquo;t known to be type-safe.</p>
-<p>However, given that Gleam compiles down to Erlang, you will be able to still benefit from tools like Dialyzer, which can still point out that your calls are not going to work out.</p>
+<p>This approach does not really differ from how you would write Elixir in most cases anyway. For example, if you work on an Elixir API, you probably already convert the parameters passed to your Phoenix controllers into more well-defined types before calling your context modules with the values. The thing that changes is the fact that once you cross that boundary, you can benefit from static typing, giving you extra guarantees about the correctness of your code (and relieving you from typing many @spec definitions!).</p>
+<p>However, it is worth understanding the limitations of this approach: the Elixir side cannot know if you are calling Gleam functions with bad values, so the compiler won&rsquo;t be able to stop you from making a call that isn&rsquo;t known to be type-safe. Thankfully, given that Gleam compiles down to Erlang, you will be able to still benefit from tools like Dialyzer, which can still point out that your calls are not going to work out. This means you still get to experience the features that Erlang/Elixir offer for addressing type concerns, even in such a &ldquo;worst case scenario&rdquo;.</p>
 <h2 id="how-to-use-gleam-in-an-elixir-project">How to use Gleam (in an Elixir project)</h2>
-<p>Installation of Gleam can be done in many ways, <a href="https://github.com/asdf-community/asdf-gleam">including via asdf</a>.</p>
-<p>As for using Gleam in an Elixir project, use the official mix plugin and follow its README. Then just create Gleam modules in your <code>src</code> directory. That literally is all there is to it!</p>
-<p>Because Gleam compiles down to Erlang, you can simply call the compiled Gleam modules <code>:hello_gleam.hello</code>, or even <code>alias</code> the modules (<code>alias :hello_gleam, as: HelloGleam</code>) for an even more Elixir-like experience.</p>
+<p>Installation of Gleam can be done in many ways, <a href="https://github.com/asdf-community/asdf-gleam">including via asdf</a>. This is my personally preferred method, but in case you&rsquo;re looking for alternatives, check out the <a href="https://gleam.run/getting-started/">Getting Started</a> section of the official Gleam site.</p>
+<p>As for using Gleam in an Elixir project, use the <a href="https://github.com/gleam-lang/mix_gleam">official mix plugin</a> and follow its README. Once that&rsquo;s done, just place your Gleam modules into the <code>src</code> directory. Now you&rsquo;re ready to use Gleam through Elixir!</p>
+<p>Because Gleam compiles down to Erlang, you can simply call the compiled Gleam functions as you would any Erlang function. Given a <code>hello_world</code> module in <code>src/hello_world.gleam</code>, you can call it via <code>:hello_gleam.hello()</code>. If you want a more Elixir-like experience, you can even <code>alias</code> the modules (<code>alias :hello_gleam, as: HelloGleam</code>)!</p>
+<h2 id="first-impressions">First impressions</h2>
+<p>I&rsquo;ve spent a little while now working on such a setup, and the first impressions have been very positive. A particular highlight I wish to share is the Gleam error messages. This might be bread and butter for anyone working with languages like TypeScript or Rust, but for someone who primarily works with a dynamic language such as Elixir, being able to see things like these in my terminal brings a lot of joy:</p>
+<pre><code>Compiling hello_world
+
+error: Type mismatch
+  ┌─ /Users/juhalehtonen/projects/gleam/blog_demo/src/hello_world.gleam:7:3
+  │
+7 │   &quot;Hello, from gleam!&quot;
+  │   ^^^^^^^^^^^^^^^^^^^^
+
+The type of this returned value doesn't match the return type
+annotation of this function.
+
+Expected type:
+
+    Int
+
+Found type:
+
+    String
+
+</code></pre><pre><code>Compiling hello_world
+
+error: Unknown variable
+   ┌─ /Users/juhalehtonen/projects/gleam/blog_demo/src/hello_world.gleam:19:16
+   │
+19 │     _ -&gt; Error(nil)
+   │                ^^^ did you mean `Nil`?
+
+The name `nil` is not in scope here.
+</code></pre><p>With all this, I&rsquo;m looking forward to seeing where Gleam heads next, and what things I will be able to build with it :)</p>
 
             </main>
         </article>
