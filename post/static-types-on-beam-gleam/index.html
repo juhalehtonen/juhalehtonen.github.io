@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Juha.TL - a multidisciplinary full-stack developer</title>
+    <meta name="description" content="Juha Lehtonen: a multidisciplinary full-stack developer, an occasional designer-copywriter, and maker of all things web.">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Juha.TL">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://juha.tl/">
+    <meta property="og:image" content="https://juha.tl/img/juha-round-400x400.png">
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22256%22 height=%22256%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%235e19d3%22></rect><path fill=%22%23fff%22 d=%22M30.02 22.86L30.02 22.86Q30.46 22.68 31.40 22.45Q32.33 22.23 33.31 22.23L33.31 22.23Q37.23 22.23 37.23 25.53L37.23 25.53L37.23 63.62Q37.23 67.62 36.07 70.34Q34.91 73.05 32.91 74.70Q30.91 76.34 28.28 77.06Q25.66 77.77 22.81 77.77L22.81 77.77Q17.74 77.77 15.42 76.57Q13.11 75.36 13.11 73.41L13.11 73.41Q13.11 72.16 13.64 71.27Q14.18 70.38 14.62 69.94L14.62 69.94Q15.96 70.56 17.83 71.09Q19.70 71.63 21.74 71.63L21.74 71.63Q25.75 71.63 27.88 69.71Q30.02 67.80 30.02 63.26L30.02 63.26L30.02 22.86ZM56.99 76.79L56.99 76.79Q55.30 76.79 54.18 75.72Q53.07 74.65 53.07 72.87L53.07 72.87L53.07 22.86Q53.52 22.68 54.45 22.45Q55.38 22.23 56.45 22.23L56.45 22.23Q60.37 22.23 60.37 25.53L60.37 25.53L60.37 70.56L85.91 70.56Q86.89 71.54 86.89 73.50L86.89 73.50Q86.89 75.01 86.09 75.90Q85.29 76.79 83.95 76.79L83.95 76.79L56.99 76.79Z%22></path></svg>" />    
+
+    <script async defer data-domain="juha.tl" src="https://plausible.io/js/plausible.outbound-links.js"></script>
+    <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+
+    
+    
+    <link rel="stylesheet" href="https://juha.tl/scss/main.min.css">
+
+    <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+<div id="swup" class="transition-fade">
+
+<main class="o-container">
+    <div class="c-site-content">
+        <article class="c-article">
+            <header class="c-article__header">
+                <a href="/" class="c-article__back">&larr; Back to listing</a>
+                <h1 class="c-article__title">Static types on BEAM: Gleam</h1>
+                <div class="c-article__meta">
+                    <time datetime='Jun 4 2021'>
+                        Jun 4 2021
+                    </time> &ndash; <span>3 minute read</span>
+                </div>
+                <div class="c-article__categories">
+                    
+                        <span class="c-label">Development</span>
+                    
+                        <span class="c-label">Gleam</span>
+                    
+                        <span class="c-label">Erlang</span>
+                    
+                        <span class="c-label">B e a m</span>
+                    
+                </div>
+            </header>
+
+            <main class="c-article__content">
+                
+
+                <p>While Elixir is a <a href="https://en.wikipedia.org/wiki/Strong_and_weak_typing">strongly typed</a> language, the most common complaint I&rsquo;ve encountered regarding Elixir is the lack of <a href="https://en.wikipedia.org/wiki/Type_system#Static_type_checking">static typing</a>. The Elixir core team has investigated the feasibility of introducing a backwards-compatible way of introducing a static type system in the past, but ultimately concluded that Elixir won&rsquo;t be getting one (at least not via official means).</p>
+<p>Thankfully, Elixir provides many tools for addressing typical type-related issues. The strong typing means implicit type casting is out of the picture, and you can avoid many other pitfalls of dynamic typing with a thorough use of guards, type specs and pattern matching. With these tools, you can be fairly certain that the value you are operating with is what you think it is. This approach, however, places the burden on the developer to make informed decisions and write.</p>
+<p>What if you really need static types in your Elixir project?</p>
+<h2 id="enter-gleam">Enter Gleam</h2>
+<p>Gleam is a fairly new language that runs on the BEAM. While still compiling down to Erlang, it is statically typed.</p>
+<p>However, you probably don&rsquo;t want to rewrite your existing Elixir project in Gleam. What excites me in such a scenario is the fact that you can call Gleam code directly from your Elixir code with zero overhead, since Gleam compiles down to Erlang, and Erlang code can already be called from Elixir as-is. This means that you can write parts of your code in Gleam, while keeping the overall system use Elixir.</p>
+<p>A pattern I&rsquo;ve recently investigated is to write as much of the core of your software in Gleam as possible, while keeping the OTP systems and interface around your core in Elixir. An advantage I see in this is that I&rsquo;m able to use all the know-how, dependencies and tooling from Elixir to setup my project, while using Gleam to be certain that the core functionality of my system is statically typed. I feel like this approach also makes sense when you consider that things like external inputs need to be treated as unknown types anyway, so it&rsquo;s natural to take them in via a dynamically typed language and then convert them to known types your core expects.</p>
+<p>This approach does not really differ from how you would write Elixir in most cases anyway. For example, you probably already convert the parameters passed to your Phoenix controllers into more well-defined types before calling your context modules with the values. The thing that changes is the fact that you can benefit from static typing, giving you extra guarantees about the correctness of your code (and relieving you from typing many @spec definitions!). However, it is worth understanding the limitations of this approach: the Elixir side cannot know if you are calling Gleam functions with bad values (after compilation, Gleam is just dynamically typed Erlang after all), so the compiler won&rsquo;t be able to stop you from making a call that isn&rsquo;t known to be type-safe.</p>
+<p>However, given that Gleam compiles down to Erlang, you will be able to still benefit from tools like Dialyzer, which can still point out that your calls are not going to work out.</p>
+<h2 id="how-to-use-gleam-in-an-elixir-project">How to use Gleam (in an Elixir project)</h2>
+<p>Installation of Gleam can be done in many ways, <a href="https://github.com/asdf-community/asdf-gleam">including via asdf</a>.</p>
+<p>As for using Gleam in an Elixir project, use the official mix plugin and follow its README. Then just create Gleam modules in your <code>src</code> directory. That literally is all there is to it!</p>
+<p>Because Gleam compiles down to Erlang, you can simply call the compiled Gleam modules <code>:hello_gleam.hello</code>, or even <code>alias</code> the modules (<code>alias :hello_gleam, as: HelloGleam</code>) for an even more Elixir-like experience.</p>
+
+            </main>
+        </article>
+    </div>
+</main>
+
+        <footer class="c-site-footer">
+            <p>No cookies or trackers served. <br>Check out the <a href="https://plausible.io/share/jXuThv3j62n-9teEU4iqg">public analytics</a> for this site.</p>
+        </footer>
+
+        </div>
+        <script src="/assets/bundle.js"></script>
+    </body>
+</html>

@@ -33,6 +33,11 @@
   </url>
   
   <url>
+    <loc>https://juha.tl/categories/gleam/</loc>
+    <lastmod>2021-06-04T13:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://juha.tl/</loc>
     <lastmod>2021-06-04T13:00:00+02:00</lastmod>
   </url>
@@ -44,6 +49,11 @@
   
   <url>
     <loc>https://juha.tl/post/</loc>
+    <lastmod>2021-06-04T13:00:00+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://juha.tl/post/static-types-on-beam-gleam/</loc>
     <lastmod>2021-06-04T13:00:00+02:00</lastmod>
   </url>
   
