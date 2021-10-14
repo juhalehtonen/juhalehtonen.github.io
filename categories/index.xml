@@ -6,11 +6,11 @@
     <description>Recent content in Categories on Juha.TL</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 04 Jun 2021 13:00:00 +0200</lastBuildDate><atom:link href="https://juha.tl/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 14 Oct 2021 13:00:00 +0200</lastBuildDate><atom:link href="https://juha.tl/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>BEAM</title>
       <link>https://juha.tl/categories/beam/</link>
-      <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
+      <pubDate>Thu, 14 Oct 2021 13:00:00 +0200</pubDate>
       
       <guid>https://juha.tl/categories/beam/</guid>
       <description></description>
@@ -19,9 +19,27 @@
     <item>
       <title>Development</title>
       <link>https://juha.tl/categories/development/</link>
-      <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
+      <pubDate>Thu, 14 Oct 2021 13:00:00 +0200</pubDate>
       
       <guid>https://juha.tl/categories/development/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Erlang</title>
+      <link>https://juha.tl/categories/erlang/</link>
+      <pubDate>Thu, 14 Oct 2021 13:00:00 +0200</pubDate>
+      
+      <guid>https://juha.tl/categories/erlang/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Gleam</title>
+      <link>https://juha.tl/categories/gleam/</link>
+      <pubDate>Thu, 14 Oct 2021 13:00:00 +0200</pubDate>
+      
+      <guid>https://juha.tl/categories/gleam/</guid>
       <description></description>
     </item>
     
@@ -31,24 +49,6 @@
       <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
       
       <guid>https://juha.tl/categories/elixir/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Erlang</title>
-      <link>https://juha.tl/categories/erlang/</link>
-      <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
-      
-      <guid>https://juha.tl/categories/erlang/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Gleam</title>
-      <link>https://juha.tl/categories/gleam/</link>
-      <pubDate>Fri, 04 Jun 2021 13:00:00 +0200</pubDate>
-      
-      <guid>https://juha.tl/categories/gleam/</guid>
       <description></description>
     </item>
     
